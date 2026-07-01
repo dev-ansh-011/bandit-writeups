@@ -1,0 +1,7 @@
+Level Difficulty: Low
+Commands Used: ls,cat
+              ls -> to list all the files
+              cat -> reads and prints file content
+
+Steps: ls [to see if there is a readme file present or not]
+       cat readme [to print the file contents]
