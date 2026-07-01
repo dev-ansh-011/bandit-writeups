@@ -1,0 +1,11 @@
+Level Difficulty: Low - Medium
+Commands Used: ls,cat,cd,file
+              ls -> to list all the files
+              cat -> reads and prints file content
+              cd -> change directory
+              file -> type of file
+Steps: ls [to see the inhere directory]
+       cd inhere [to change our directory from home to inhere , where our file is located]
+       ls [we are able to see many files in the directory]
+       file ./* [we used this command to see the file types of each file in the directory, as the file we need is a human readable file, it should be in ASCII code]
+       cat ./-file07 [to print the file contents] [used the file specification method again here]
