@@ -1,0 +1,11 @@
+Level Difficulty: Low - Medium
+Commands Used: ls,cat
+              ls -> to list all the files
+              cat -> reads and prints file content
+
+Steps: ls [to see if there is a --spaces in the filename-- file present or not]
+       cat ./"--spaces in the filename" [ to print the file contents, we used ./ before filename , as there are spaces in the filename, which makes it not possible to use commands on the file without using path specification as well as "" to indicate that it is a single file ]
+               [ . = current directory ]
+               [ / = path separator ] 
+               [ - = the filename ] 
+               [ " " = to indicate that this is a single file]
