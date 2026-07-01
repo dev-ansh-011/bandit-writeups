@@ -1,0 +1,10 @@
+Level Difficulty: Low - Medium
+Commands Used: ls,cat
+              ls -> to list all the files
+              cat -> reads and prints file content
+
+Steps: ls [to see if there is a - file present or not]
+       cat ./- [ to print the file contents, we used ./ before - , as - refers to standard input in linux, so we used the concpet of path specification to use cat on the file ]
+               [ . = current directory ]
+               [ / = path separator ] 
+               [ - = the filename ] 
