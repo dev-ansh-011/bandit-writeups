@@ -1,0 +1,10 @@
+Level Difficulty: Low - Medium
+Commands Used: ls,cat,cd
+              ls -> to list all the files
+              cat -> reads and prints file content
+              cd -> change directory
+Steps: ls [to see the inhere directory]
+       cd inhere [to change our directory from home to inhere , where our file is located]
+       ls -a [-a is used with ls to list all the hidden file, where in this case was a file named ...Hidding-From-You]
+       cat ...Hiding-From-You [to print the file contents]
+
