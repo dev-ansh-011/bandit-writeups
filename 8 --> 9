@@ -1,0 +1,6 @@
+Level Difficulty: Low - Medium
+Commands Used: sort,uniq
+              sort -> rearrange lines in order
+              uniq -> fliters adjacent duplicate lines
+Steps: sort data.txt | uniq -u [ firstly , sort just arranges the lines in data.txt, then we use the | (pipe) , to send the output of sort to uniq as input ]
+                               [ here we used -u with uniq , as we only need a element that is only appearing once ]
