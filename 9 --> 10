@@ -1,0 +1,7 @@
+Level Difficulty: Low
+Commands Used: grep,strings
+              grep -> searches for text pattern in files and prints that
+              strings -> scans and extracts all human readable text
+Steps: strings data.txt | grep "^===" [checks the text for all the human readabale text , then the output is sent to grep , to find all the elemts starting with ===]
+                                      ["^xyz" -> will check for elements starting with xyz]
+                                      ["xyz$" -> will check for elements ending with xyz]
