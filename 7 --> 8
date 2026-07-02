@@ -1,0 +1,4 @@
+Level Difficulty: Low
+Commands Used: grep
+              grep -> searches for text pattern in files and prints that
+Steps: grep millionth data.txt [just write the word we need to search in front of grep command and in lasst the file name]
