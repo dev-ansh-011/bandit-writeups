@@ -1,0 +1,8 @@
+Level Difficulty: Medium
+Commands Used: find
+              find -> finds the file with the conditions mentioned
+Steps: find / -size 33c -user bandit7 -group bandit6 2> /dev/null [ we used -user and -group for the respective owner and group]
+                                                                  [ -size 33c -> 33 bytes in size]
+                                                                  [ the most tricky part of this question was, that we needed to use 2> /dev/null here as due to searching the whole server we recieved many permission denied errors ]
+                                                                  [ making seeing the correct file not possible , here 2 is the number denoting stderr(error output), which gets redirected to /dev/null, which is a special virtual ]
+                                                                  [ file that acts as a black hole. ]
