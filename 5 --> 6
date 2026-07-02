@@ -1,0 +1,11 @@
+Level Difficulty: Medium
+Commands Used: ls,cat,cd,find
+              ls -> to list all the files
+              cat -> reads and prints file content
+              cd -> change directory
+              find -> finds the file with the conditions mentioned
+Steps: ls [to see the inhere directory]
+       cd inhere [to change our directory from home to inhere , where our file is located]
+       find -type f -size 1033c -not -executable [ I was unable to find a way to implement this -> human-readable]
+                                                 [ -size 1033c -> 1033 bytes in size] {we put a c to indicate that it is in bytes, (for ex: G-gigabytes, M-megabytes)}
+                                                 [ -type f -> to indicate that the object we are trying to fight is a file]
