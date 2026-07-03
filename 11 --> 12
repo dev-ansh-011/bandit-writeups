@@ -1,0 +1,6 @@
+Level Difficulty: Medium - High
+Commands Used: cat,tr
+              ls -> to list all the files
+              tr -> translates,replaces or deletes individual characters [for me how to use tr was a difficult task , like how to use tr to reorder and then how to do it]
+
+Steps: cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m' [we just pipe the output of cat to tr, and in tr we replace a-m with n-z as told in question , they are reordered by 13 position]
