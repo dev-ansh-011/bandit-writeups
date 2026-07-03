@@ -1,0 +1,4 @@
+Level Difficulty: Low
+Commands Used: base64
+              base64 -> encodes/decodes data to base64
+Steps: base64 -d data.txt [-d -> here decodes the encoded file to human readable format]
