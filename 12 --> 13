@@ -1,0 +1,24 @@
+Level Difficulty: Medium - High
+Commands Used: mkdir,cd,cp,mv,xxd,file,gunzip,bunzip2,tar,rm,cat
+              mkdir -> creates a new directory
+              cd -> change directory
+              cp -> copies a file
+              mv -> renames/moves a file
+              xxd -> makes a hexdump of a file, -r reverses it back to binary
+              file -> tells us the type of a file
+              gunzip -> decompresses a .gz file
+              bunzip2 -> decompresses a .bz2 file
+              tar -> packs/unpacks a tar archive
+              rm -> removes a file
+              cat -> reads and prints file content
+
+Steps: mkdir /tmp/temp_dir && cd /tmp/temp_dir [made a working directory in /tmp since home directory isnt writable]
+       cp ~/data.txt . [copied data.txt into our temp directory]
+       mv data.txt data [just renamed it to make it easier to work with]
+       xxd -r data > binary [data was actually a hexdump, so we reverse it back to binary with xxd -r, this gives us the real compressed file]
+       file binary [this became the main command of the level, we keep running file after every step to know what to do next]
+                   [file said gzip compressed data -> renamed to binary.gz and ran gunzip on it]
+                   [file said bzip2 compressed data -> ran bunzip2 on it, since it cant guess the original name it saves it as xyz.out]
+                   [file said POSIX tar archive -> ran tar -xf to extract it, which gives a new file]
+                   [we had to repeat this exact file -> gunzip/bunzip2/tar cycle around 8 times, going back and forth between gzip, bzip2 and tar, until file finally said ASCII text]
+       cat data8 [this last file was the actual password, no more compression left]
