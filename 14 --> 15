@@ -1,0 +1,5 @@
+Level Difficulty: Low
+Commands Used: nc
+               nc -> netcat, opens a raw connection to a host and port, lets us send/receive data directly
+Steps: nc localhost 30000 [opens a raw connection to port 30000 on this same machine, where a listener is waiting for input]
+       <pasted bandit14's password and hit enter> [the service reads whatever we send and if it matches bandit14's actual password, it prints back the password for bandit15]
