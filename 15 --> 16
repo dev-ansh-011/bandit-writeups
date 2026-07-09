@@ -1,0 +1,5 @@
+Level Difficulty: Low
+Commands Used: openssl
+               openssl -> toolkit for TLS/SSL and other stuff, s_client lets it act as a TLS client to connect to a server
+Steps: openssl s_client -connect localhost:30001 [connects to port 30001 using a TLS handshake instead of plain nc, since this port expects encrypted traffic - host and port need to be colon separated in one argument, not space separated, or openssl gets confused between the option and a bare target]
+       <pasted bandit15's password and hit enter> [once the TLS handshake finishes, we land in a plain text prompt same as nc, type the password and it validates it and hands back bandit16's password]
