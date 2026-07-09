@@ -1,0 +1,13 @@
+Level Difficulty: Medium - High
+Commands Used: scp,chmod,ssh,cat
+              scp -> securely copies a file between machines over ssh
+              chmod -> changes file permissions
+              ssh -> logs into a remote machine, -i lets us point to a specific private key
+              cat -> reads and prints file content
+Steps: scp -P 2220 bandit13@bandit.labs.overthewire.org:/home/bandit13/sshkey.private ./bandit14.private [run from our own machine, not inside the bandit13 session, this pulls the private key down locally]
+       chmod 600 ./bandit14.private [ssh refuses to use a key with loose permissions, 600 = only the owner can read/write it]
+       ssh -i ./bandit14.private -p 2220 bandit14@bandit.labs.overthewire.org [logs in as bandit14 using the key, run from our local machine hitting the real hostname]
+       cat /etc/bandit_pass/bandit14 [now that we ARE bandit14, read the password file directly]
+
+Note: this level looks like it should work if you scp the key to /tmp on the bandit13 session itself and then ssh -i key bandit14@localhost, but that gets blocked - OTW's wrapper rejects any login attempt whose source is localhost/127.0.0.1, regardless of auth method. The scp and final ssh -i both have to run from your own machine, outside any bandit session.
+      so i had to take a little help online to solve this level
