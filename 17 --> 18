@@ -1,0 +1,6 @@
+Level Difficulty: Low
+Commands Used: diff
+              diff -> compares two files line by line and shows exactly what differs between them
+Steps: diff passwords.new passwords.old [compares the two files, output uses < for lines from the first file given and > for lines from the second, so here < is from passwords.new and > is from passwords.old]
+                                        [42c42 -> meant that the change was in line 42]
+       
