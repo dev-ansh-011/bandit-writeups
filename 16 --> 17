@@ -8,7 +8,7 @@ Commands Used: nmap,openssl,chmod,ssh,cat
 Steps: nmap -p 31000-32000 -sV localhost [scans the given port range and shows which ports are open, -sV also tries to guess what service/version is running on each so we know which ones are worth checking]
        openssl s_client -connect localhost:PORT [connects to each open port one by one using TLS, since we already learned last level that some of these services expect an encrypted connection rather than plain nc]
        [one of the ports handed back an RSA private key directly in the response instead of asking for a password]
-       <copied the private key block into a file in our tmp working dir> [saved everything between -----BEGIN RSA PRIVATE KEY----- and -----END RSA PRIVATE KEY----- exactly as printed]
+       <copied the private key block into a file in our tmp working dir> use mktemp -d or mkdir dir_name [saved everything between -----BEGIN RSA PRIVATE KEY----- and -----END RSA PRIVATE KEY----- exactly as printed]
        chmod 600 <keyfile> [ssh refuses to use a key with loose permissions, 600 = only the owner can read/write it]
        ssh -i <keyfile> bandit17@localhost -p 2220 [logs in as bandit17 using the key we just found]
        cat /etc/bandit_pass/bandit17 [now that we ARE bandit17, read the password file directly]
