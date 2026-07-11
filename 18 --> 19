@@ -1,0 +1,8 @@
+Level Difficulty: Medium
+Commands Used: ssh,cat
+              ssh -> logs into a remote machine, can also run a single command directly on the remote host instead of opening a full shell
+              cat -> reads and prints file content
+Steps: ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme [instead of just ssh-ing in normally, we tack the command straight onto the end of the ssh command - this makes ssh run ONLY that one command on the remote machine and then disconnect, it never opens a full interactive shell]
+       <entered bandit18's password when prompted> [readme gets printed directly to our terminal and the connection closes right after]
+
+Note: normally ssh drops you into an interactive shell, and part of setting that up means bash reads and runs ~/.bashrc before showing a prompt. Someone edited bandit18's .bashrc to instantly log out any interactive session, which is why a normal ssh login kicks you out immediately no matter the password. Appending a command to the ssh call skips the interactive shell setup entirely, so .bashrc never gets executed and we read the file clean.
