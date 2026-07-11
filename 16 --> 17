@@ -1,14 +1,26 @@
-Level Difficulty: Medium - High
-Commands Used: nmap,openssl,chmod,ssh,cat
-              nmap -> network scanner, checks a range of ports on a host to see which ones are open and what service is running
-              openssl -> s_client lets it connect to a port like a TLS client, same as we used last level
+Level Difficulty: High
+Commands Used: nmap,mktemp,openssl,cat,chmod,scp,ssh
+              nmap -> network scanner, -sV also tries to identify the service/version running on each open port
+              mktemp -> creates a temp file, -d makes it a directory instead
+              openssl -> s_client lets it connect to a port like a TLS client
+              cat -> reads and prints file content, also used with > to save pasted text into a file
               chmod -> changes file permissions
+              scp -> securely copies a file between machines over ssh
               ssh -> logs into a remote machine, -i lets us point to a specific private key
-              cat -> reads and prints file content
-Steps: nmap -p 31000-32000 -sV localhost [scans the given port range and shows which ports are open, -sV also tries to guess what service/version is running on each so we know which ones are worth checking]
-       openssl s_client -connect localhost:PORT [connects to each open port one by one using TLS, since we already learned last level that some of these services expect an encrypted connection rather than plain nc]
-       [one of the ports handed back an RSA private key directly in the response instead of asking for a password]
-       <copied the private key block into a file in our tmp working dir> use mktemp -d or mkdir dir_name [saved everything between -----BEGIN RSA PRIVATE KEY----- and -----END RSA PRIVATE KEY----- exactly as printed]
-       chmod 600 <keyfile> [ssh refuses to use a key with loose permissions, 600 = only the owner can read/write it]
-       ssh -i <keyfile> bandit17@localhost -p 2220 [logs in as bandit17 using the key we just found]
-       cat /etc/bandit_pass/bandit17 [now that we ARE bandit17, read the password file directly]
+Steps: nmap -p 31000-32000 -sV localhost [scans the given port range, -sV also flags anything it cant identify, which is exactly what points us to the right port]
+       [scan showed 5 open ports: 31046 and 31691 and 31960 were plain echo, useless. 31518 was ssl/echo, just bounces input back and closes. 31790 came back as "ssl/unknown" because nmap couldnt fingerprint its custom Wrong!/Correct! password check - that unrecognized flag is the actual clue to which port matters]
+       mktemp -d && cd /tmp/tmp.xxxxxxxxxx [fresh owned working directory, home dir isnt writable]
+       (sleep 1; echo "<bandit16 password>") | openssl s_client -connect localhost:31790 -quiet [pipes the password in as one clean line instead of pasting interactively, since interactive paste kept adding stray characters/newlines that made the server reject it as Wrong! even with the right password. sleep 1 gives the TLS handshake time to finish before we send anything, -quiet hides all the cert/handshake noise so we can actually read the Correct!/Wrong! response]
+       [got Correct! followed immediately by a full OpenSSH private key block]
+       cat > bandit17.key [pasted the ENTIRE key block including the -----BEGIN OPENSSH PRIVATE KEY----- and -----END OPENSSH PRIVATE KEY----- lines - missing either line makes ssh unable to parse the file at all, this tripped us up more than once]
+       head -1 bandit17.key / tail -1 bandit17.key [quick sanity check to confirm both marker lines actually made it into the file before moving on]
+       chmod 600 bandit17.key [ssh refuses to use a key with loose permissions]
+       <exit back to our own machine, NOT inside any bandit session, same localhost-block lesson as level 13>
+       scp -P 2220 bandit16@bandit.labs.overthewire.org:/tmp/tmp.xxxxxxxxxx/bandit17.key ./bandit17.key [pulls the key from bandit16's tmp dir down to our own machine]
+       chmod 600 ./bandit17.key [permissions need to be reset locally too, scp doesnt preserve the strict mode reliably]
+       ssh -i ./bandit17.key -p 2220 bandit17@bandit.labs.overthewire.org [logs in as bandit17 using the key, from our own machine hitting the real hostname - if it logs in with zero password prompt, thats confirmation the key is valid]
+       cat /etc/bandit_pass/bandit17 [read the password now that we ARE bandit17]
+
+Note: this level combines two lessons from earlier - openssl s_client is needed over nc because the port speaks TLS (same as level 15), and the final ssh has to run from our own machine outside any bandit session because of OTW's localhost SSH block (same as level 13-14). The biggest actual time-sink here wasnt the port-finding or the TLS step, it was making sure the key file we pasted had its BEGIN/END header lines intact - ssh gives a fairly unhelpful "error in libcrypto: unsupported" if even one of those lines is missing, so double check with head/tail before transferring anywhere.
+      this level took me the most time by far, i had to check various blogs,take help of even AI ,just to clear it.
+      but i learnt a lot , a lot from this level too.
