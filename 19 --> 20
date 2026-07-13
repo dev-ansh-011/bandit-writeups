@@ -1,3 +1,9 @@
-Level Difficulty: Low - Medium
-Commands Used:          
-Steps:
+Level Difficulty: Medium
+Commands Used: ls,cat
+              ls -> lists files, -l shows permissions/owner/group in detail
+              cat -> reads and prints file content
+Steps: ls -l [shows a file called bandit20-do, owned by bandit20 but with group bandit19, and an s in the owner permission slot (rws instead of rwx) which means setuid is set]
+       ./bandit20-do [ran with no arguments first, it printed its own usage: "Run a command as another user. Example: ./bandit20-do whoami"]
+       ./bandit20-do cat /etc/bandit_pass/bandit20 [because the binary is owned by bandit20 and has setuid set, running it makes THIS specific process execute as bandit20, not as us - so the cat command inside it can read a file that bandit19 normally has no permission to touch]
+
+Note: we're still bandit19 the whole time, only the one command spawned by bandit20-do actually runs with bandit20's identity. Same result could also be reached with ./bandit20-do su bandit20 to drop into an actual bandit20 shell instead of running a single command.
