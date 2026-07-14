@@ -1,0 +1,15 @@
+Level Difficulty: Medium
+Commands Used: cat,whoami,echo,md5sum,cut,bash
+              cat -> reads and prints file content
+              whoami -> prints the current username
+              echo -> prints text, used here to build a string before hashing it
+              md5sum -> computes the md5 hash of whatever input it receives
+              cut -> extracts a specific field from text, -d sets the delimiter, -f picks which field
+              bash -> explicitly runs a script with bash, used here to execute the script ourselves instead of just reading it
+Steps: cd /etc/cron.d && cat cronjob_bandit23 [confirms this cron job runs /usr/bin/cronjob_bandit23.sh every minute, as bandit23]
+       cat /usr/bin/cronjob_bandit23.sh [reads the script - it grabs whoami, builds a filename by md5 hashing the string "I am user <name>", then copies that user's password file to /tmp/<that hash>]
+       bash /usr/bin/cronjob_bandit23.sh [ran the script ourselves as bandit22 ]
+       echo I am user bandit23 | md5sum | cut -d ' ' -f 1 [manually computes the same hash the script would produce, but for bandit23 instead of ourselves - since the real cron job runs this script every minute AS bandit23, that file already exists in /tmp with bandit23's password in it]
+       cat /tmp/<that hash> [reads the file, gets bandit23's password]
+
+Note: cat-ing the script only shows its text, it doesnt run it or import its variables into our shell.
