@@ -1,4 +1,4 @@
-Level Difficulty: High
+Level Difficulty: Medium
 Commands Used: nc,ssh,cat
               nc -> netcat, can act as either a client connecting out, or with -l a listener waiting for an incoming connection
               ssh -> used here just to open a second session so we can run two things at once
