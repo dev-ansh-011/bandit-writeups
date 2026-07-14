@@ -1,0 +1,11 @@
+Level Difficulty: Medium
+Commands Used: ls,cat
+              ls -> lists files, -al shows all files including hidden ones plus permissions/owner details
+              cat -> reads and prints file content
+Steps: ls -al [home directory was basically empty, just default dotfiles, nothing useful here - the level goal already told us to look in /etc/cron.d instead]
+       cd /etc/cron.d [system-wide cron jobs live here, this is different from a personal crontab which is why crontab -l/-e kept failing with permission denied - we dont have a personal crontab and arent meant to make one]
+       ls [several cronjob files, but only cronjob_bandit22 matters for this level since we're going bandit21 -> 22]
+       cat cronjob_bandit22 [shows a line: * * * * * bandit22 /usr/bin/cronjob_bandit22.sh - the * * * * * means it runs every single minute, and critically it runs AS bandit22, not as us]
+       cat /usr/bin/cronjob_bandit22.sh [read the actual script the cron job runs, this is where the real vulnerability is]
+       [script does 2 things: chmod 644 on a file in /tmp (making it world-readable), then writes bandit22's actual password into that same file - since the script runs as bandit22 it CAN read bandit22's password file, and then it carelessly dumps it somewhere any user can read]
+       cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv [just read the file the script exposed, gets us bandit22's password directly]
