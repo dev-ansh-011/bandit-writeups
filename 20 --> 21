@@ -1,0 +1,12 @@
+Level Difficulty: High
+Commands Used: nc,ssh,cat
+              nc -> netcat, can act as either a client connecting out, or with -l a listener waiting for an incoming connection
+              ssh -> used here just to open a second session so we can run two things at once
+              cat -> reads and prints file content
+Steps: cat /etc/bandit_pass/bandit20 [grab bandit20's current password, since suconnect needs to check it]
+       echo "<bandit20 password>" | nc -l -p 12345 [starts a listener on port 12345 and queues up bandit20's password to send the instant something connects - this sits and waits, looks frozen, thats normal]
+       <opened a second ssh session to bandit20 in a new terminal, kept the listener running in the first one>
+       ./suconnect 12345 [suconnect is the setuid binary from this level - owned by bandit21, so running it briefly gives us bandit21's identity. it connects OUT to localhost on the port we give it, reads one line from whatever's listening there, and checks if that line matches bandit20's password]
+       [back in the first terminal, nc received the connection from suconnect, sent it the password we queued up, suconnect verified it matched, and sent bandit21's password back over that same connection - nc printed it before the connection closed]
+
+Note: this level needs two processes running at the same time in the same "moment" - a listener has to already be up and waiting before suconnect tries to connect, since suconnect only reads one line and gives up. Easiest way to manage this without job control gymnastics is just two separate ssh sessions - one running nc -l, the other running suconnect.
