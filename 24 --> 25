@@ -1,5 +1,5 @@
 Level Difficulty: Medium
-Commands Used: cat,echo,nc
+Commands Used: echo,nc
               echo -> prints text, used here to build each password+pincode line
               nc -> netcat, sends data to a listening port
 Steps: for i in {0000..9999}; do echo 'hVQMk3lJNsmQ7VF3ubyrNNBom7BOgVXv' $i; done | nc localhost 30002 [generates all 10000 possible 4-digit pincodes zero-padded, pairs each with our current password on one line, and pipes the whole batch into the service on port 30002 in one connection]
