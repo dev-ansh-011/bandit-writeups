@@ -1,0 +1,16 @@
+Level Difficulty: High
+Commands Used: ls,cat,ssh
+              ls -> lists files in the current directory
+              cat -> reads and prints file content, used here on /etc/passwd and the showtext script
+              ssh -> logs into a remote machine, -i lets us point to a specific private key
+Steps: ls [home directory had bandit26.sshkey sitting right there, already handed to us]
+       cat /etc/passwd [shows every user's login shell - bandit26's is set to /usr/bin/showtext instead of /bin/bash]
+       cat /usr/bin/showtext [shell script contents: exports TERM, then runs "exec more ~/text.txt", then exit 0 - exec replaces the process entirely with more, so once more finishes displaying the file theres nothing left running and we get logged out immediately]
+       <shrunk the terminal window so the content of text.txt wouldnt fit on one screen> [more only enters interactive mode if the content is taller than the terminal - if it all fits, it just dumps and exits straight into that exit 0 line]
+       ssh bandit26@localhost -i bandit26.sshkey [connects using the key, and since the window was small enough this time, more actually paused in interactive mode instead of finishing instantly]
+       <pressed "v" while more was paused> [more's interactive mode has a v key that opens the current line in a text editor, defaulting to vim if no EDITOR/VISUAL variable is set]
+       :set shell=/bin/bash [vim command mode (entered with :) lets you change which shell vim treats as its shell]
+       :shell [tells vim to actually launch that shell - drops us into a real interactive /bin/bash session, running as bandit26 since that's who launched vim in the first place]
+       cat /etc/bandit_pass/bandit26 [read the password now that we have an actual shell as bandit26]
+
+Note: this level was quite tricky at the usage of more part, took me like a day to figure this out.
