@@ -1,0 +1,7 @@
+Level Difficulty: Medium
+Commands Used: ls,file
+               ls -> lists files, showed bandit27-do sitting right in the home directory
+               file -> identifies file type, confirmed bandit27-do is a setuid binary
+Steps: ls [home directory for bandit26 has two files: bandit27-do and text.txt - text.txt is the file from the previous level's more/vim trick, bandit27-do is new]
+       file ./bandit27-do [same pattern as bandit20-do back in level 19->20]
+       ./bandit27-do cat /etc/bandit_pass/bandit27 [bandit27-do is owned by bandit27 and has setuid set, so running it makes this one command execute AS bandit27 - lets cat directly read bandit27's password file, which we'd normally have no permission to touch]
