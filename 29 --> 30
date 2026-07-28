@@ -1,0 +1,11 @@
+Level Difficulty: Medium
+Commands Used: git
+              git clone -> copies a remote git repository down to your local machine
+              git branch -> lists branches, plain shows local only, -a shows local AND remote branches
+              git checkout -> switches to a different branch, -b <name> origin/<name> creates a local branch tracking a remote one that only exists on origin so far
+              cat -> reads and prints file content
+Steps: git clone ssh://bandit29-git@bandit.labs.overthewire.org:2220/home/bandit29-git/repo [cloned from our own machine]
+       cd repo && ls && cat README.md [same redacted "xxxxxxxxxx" password pattern as last level - master branch alone doesn't have it]  
+       git branch -a [this is the actual key step - shows remote-tracking branches too, revealed a branch called dev that doesn't show up with plain git branch]
+       git checkout dev [switches to the dev branch]
+       cat README.md [on the dev branch, the README has the real, un-redacted password]
