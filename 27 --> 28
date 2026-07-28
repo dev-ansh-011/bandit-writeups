@@ -1,1 +1,9 @@
-
+Level Difficulty: Low
+Commands Used: git,ls,cat
+               git clone -> copies a remote git repository down to your local machine
+               ls -> lists files in the cloned repo
+               cat -> reads and prints file content  
+Steps: git clone ssh://bandit27-git@bandit.labs.overthewire.org:2220/home/bandit27-git/repo [run from our OWN machine, not inside any bandit session - the level explicitly requires this. note the port goes INSIDE the ssh:// URL itself (:2220 right after the hostname), unlike scp/ssh which take a separate -p flag]
+       <entered bandit27's password when prompted, since bandit27-git shares the same password as bandit27>
+       cd repo && ls [repo has just one file, README]
+       cat README [password for bandit28 is written directly in the README, no exploit or trick needed this time
