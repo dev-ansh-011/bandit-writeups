@@ -1,1 +1,10 @@
-
+Level Difficulty: Medium
+Commands Used: git
+              git clone -> copies a remote git repository down to your local machine
+              git log -> shows the commit history of a repository  
+              git show <commit> -> shows the full diff (what changed) for one specific commit
+Steps: git clone ssh://bandit28-git@bandit.labs.overthewire.org:2220/home/bandit28-git/repo [cloned from our own machine, same as last level]
+       cd repo && cat README.md [password field is redacted, shows "password: xxxxxxxxxx" instead of an actual value]
+       git log [shows 3 commits - the oldest is "initial commit of README.md",  then "add missing data", then "fix info leak" as the most recent - that last commit message is the giveaway, since fixing a leak implies something was exposed and then removed]
+       git show 83d77407b76c9f86ac4e691a47618641c9d527ba [shows the diff for the "fix info leak" commit - the diff clearly shows a line being REMOVED (prefixed with -) that contained the real password, replaced with a line of x's]
+       [the real password is visible directly in the diff output, on the removed line]
