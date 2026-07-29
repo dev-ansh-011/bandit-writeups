@@ -1,0 +1,13 @@
+Level Difficulty: Medium
+Commands Used: ls,whoami,cat
+              ls -> lists files, showed a setuid binary called uppershell
+              whoami -> prints the current user
+              cat -> reads and prints file content
+Steps: ls [tried lowercase ls first and got "LS: not found" - the shell we landed in is uppercasing every command we type before running it, which is why "ls" became "LS" and failed]
+       $0 [$0 normally holds the name/path of the currently running shell - typing it and running it spawns a fresh instance of that same shell as a new process, but this new instance is a normal shell, not the uppercasing wrapper, since $0 bypasses whatever logic was uppercasing our input]
+       ls -la [now works normally in the fresh shell, shows uppershell - a setuid binary owned by bandit33 with group bandit32]
+       whoami [confirms we're actually bandit33 now, not bandit32]
+       cat /etc/bandit_pass/bandit33 [read the password directly now that we're bandit33]
+
+Note: the core trick here is that $0 sidesteps a shell that mangles your input (uppercasing every command).
+      So thats the last level, thanks for viewing my solutions
