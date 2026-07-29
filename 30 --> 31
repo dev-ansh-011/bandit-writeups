@@ -1,0 +1,12 @@
+Level Difficulty: Medium
+Commands Used: git
+              git log -> shows commit history, only one commit here with nothing hidden in it
+              git branch -a -> lists local AND remote branches, only master exists this time so no branch to hide behind
+              git tag -> lists any tags in the repo
+              git show <tag> -> shows what a tag points to/contains
+Steps: git clone ssh://bandit30-git@bandit.labs.overthewire.org:2220/home/bandit30-git/repo bandit30 [cloned from our own machine]
+       cd bandit30 && cat README.md [file is just a joke, "just an epmty file... muahaha" - nothing useful here]
+       git log [only one commit ever, nothing hidden in history this time]
+       git branch -a [only master exists, so unlike level 29 there's no other branch to switch to]
+       git tag [this is the key step for this level - tags are a different mechanism from branches or commits, a tag is just a fixed pointer/label someone can attach to any point in history. found one tag called "secret"]
+       git show secret [shows what that tag actually points to - the real password, stored as the tag's own content rather than hidden in a branch or a diff]
