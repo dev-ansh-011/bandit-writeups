@@ -1,0 +1,14 @@
+Level Difficulty: Medium
+Commands Used: git,cat,echo
+              cat -> reads and prints file content, used on README.md and .gitignore
+              echo -> prints text, used with > to create key.txt with the exact required content
+              git add -f -> stages a file for commit, -f forces it even if .gitignore would normally block it   
+              git commit -> saves the  staged changes as a new commit
+              git push -> uploads local commits to the remote repository
+Steps: git clone ssh://bandit31-git@bandit.labs.overthewire.org:2220/home/bandit31-git/repo bandit31 [cloned from our own machine, into a folder named bandit31 to avoid clashing with the previous level's repo folder]
+       cat README.md [instructions: push a file named key.txt, containing exactly "May I come in?", to the master branch]    
+       cat .gitignore [shows *.txt - this is why the task matters, any .txt file is normally ignored by git and won't get staged with a plain git add]
+       echo "May I come in?" > key.txt [created the file with the exact required content]
+       git add -f key.txt [the -f (force) flag is the key part here - overrides .gitignore's block on .txt files, since a normal git add key.txt would silently do nothing]
+       git commit -m "Added key.txt" [commits the staged file]   
+       git push origin master [pushes to the remote - server validated the file and printed bandit32's password directly in the push]
