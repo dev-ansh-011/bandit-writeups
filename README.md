@@ -1,32 +1,78 @@
-# OverTheWire: Bandit — Writeups & Notes
+<div align="center">
 
-This repo is where I keep track of my progress through [OverTheWire's Bandit wargame](https://overthewire.org/wargames/bandit/), a beginner-friendly series of Linux challenges that teaches you the command line by literally forcing you to use it to survive. Each level hides the password for the next one somewhere in a file, behind a permission, inside a cron job, disguised in a compressed archive and you have to figure out how to get it.
+# OverTheWire: Bandit Writeups & Notes
 
-I started this as part of a summer, before diving deeper into cloud, containers, and security tooling. Turns out you can't really skip the fundamentals.
+*A collection of my notes, explanations, and solutions while completing the OverTheWire Bandit wargame.*
 
----Why I'm doing this---
+[![Linux](https://img.shields.io/badge/Linux-Terminal-FCC624?logo=linux&logoColor=black)](https://overthewire.org/wargames/bandit/)
+[![Progress](https://img.shields.io/badge/Levels-34%2F34-success)](https://overthewire.org/wargames/bandit/)
+[![Status](https://img.shields.io/badge/Status-Completed-brightgreen)]()
 
-I want to understand Linux more, as the path I have taken requires it, and not gonna lie after solving 7-8 levels I kind of liked it.
+</div>
 
----How this repo is organized---
+---
 
-Each file is named after the level jump it covers — e.g. 05 --> 06 is my write up for getting from Level 5 to Level 6. Every write up follows roughly the same format:
+## About
+
+This repository documents my journey through **OverTheWire: Bandit**, a beginner-friendly Linux wargame that teaches command-line fundamentals through hands-on challenges.
+
+Each level requires you to discover the password for the next one by exploring files, permissions, archives, cron jobs, SSH, and many other Linux concepts.
+
+I started Bandit to build a stronger Linux foundation before diving deeper into cloud computing, containers, and cybersecurity. Somewhere around Level 8, it stopped feeling like practice and started becoming genuinely fun.
+
+---
+
+## Repository Structure
+
+Each writeup is named after the level transition it covers.
 
 ```
-Level Difficulty: <how rough it was, honestly>
-Commands Used: <the commands, plus a one-line explanation of each>
-Steps: <what I actually ran, in order, with notes on WHY>
+00 → 01
+01 → 02
+02 → 03
+...
+33 → 34
 ```
 
-I try to write these the way I'd want a friend to explain it to me — not just "run this command" but *why* that command, and what would've gone wrong otherwise. A lot of the value for me has been in the debugging, not just the final answer.
+Every writeup includes:
 
----A quick note on spoilers---
+- **Difficulty** – My honest opinion on the challenge.
+- **Commands Used** – Commands with short explanations.
+- **Solution Walkthrough** – What I did and why.
+- **Key Takeaways** – What I learned from the level.
 
-OverTheWire's own rules ask players not to post solutions publicly, since it kind of defeats the purpose of the game for the next person. I get that, and I'd genuinely encourage anyone reading this to try each level yourself first ,the struggle is most of the value.
+Rather than simply listing commands, I focus on explaining the reasoning behind each step so the learning sticks.
 
-This repo exists mainly as *my own* learning log — a way to force myself to explain what I did clearly enough that future me (or anyone else studying this stuff) can actually follow the reasoning, not just copy commands. If you're stuck on a level, I'd say peek at just enough to get unstuck, then go back and actually do it yourself.
+---
 
----Tips---
+## About the Solutions
 
-I would recommend take a notepad and write all the commands that you feel like are unique, and its variations and how to use it. Trust me that notepad was so much helpful.
-If you're on a similar path, feel free to poke around, borrow what's useful, and let me know if you spot something I got wrong — I'm very much still learning this.
+OverTheWire encourages players not to rely on public solutions, and I completely understand why—the challenge is where most of the learning happens.
+
+These notes are intended as a personal learning journal. If you're currently playing Bandit, I'd recommend attempting each level yourself first and only using these writeups if you need a small hint to get unstuck.
+
+---
+
+## My Advice
+
+One habit that helped me the most was keeping a notebook of every new command I learned.
+
+Instead of only writing the command, I also noted:
+
+- What it does
+- Common options
+- When to use it
+- Small examples
+
+That notebook ended up being one of the most valuable resources I created while working through Bandit.
+
+---
+
+## Resources
+
+- **OverTheWire Bandit:** https://overthewire.org/wargames/bandit/
+- **Linux `man` pages:** `man <command>`
+
+---
+
+If you're following a similar learning path, feel free to explore the notes, suggest improvements, or point out mistakes. I'm still learning, and that's exactly what this repository is for.
